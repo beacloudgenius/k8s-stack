@@ -4,7 +4,7 @@ setup gcloud sdk
 
 configure gcloud
 
-    config set compute/zone us-west1-a
+    gcloud config set compute/zone us-west1-a
     gcloud config set project cloudgeniuslabs
     gcloud config set container/new_scopes_behavior true
     rm -rf ~/.kube
