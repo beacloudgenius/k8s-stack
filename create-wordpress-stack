@@ -1,0 +1,24 @@
+Install without LoadBalancer - needed where setup does not provide a loadBalancer
+
+    helm install --namespace wordpress --name wordpress --set serviceType=NodePort stable/wordpress
+
+Install with a LoadBalancer
+
+    helm install --namespace wordpress --name wordpress --set serviceType=LoadBalancer stable/wordpress
+
+Delete WordPress
+
+    helm delete --purge wordpress
+
+
+Get the WordPress URL:
+
+    kubectl get svc --namespace wordpress -w wordpress-wordpress
+
+    export SERVICE_IP=$(kubectl get svc --namespace wordpress wordpress-wordpress -o jsonpath='{.status.loadBalancer.ingress[0].ip}')
+    echo http://$SERVICE_IP/admin
+
+Login with the following credentials to see your blog
+
+    echo Username: user
+    echo Password: $(kubectl get secret --namespace wordpress wordpress-wordpress -o jsonpath="{.data.wordpress-password}" | base64 --decode)
