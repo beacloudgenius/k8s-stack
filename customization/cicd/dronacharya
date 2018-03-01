@@ -1,0 +1,38 @@
+enable incubator
+
+    helm repo add incubator https://kubernetes-charts-incubator.storage.googleapis.com/
+
+install dronacharya cicd
+
+    helm install --name dronacharya incubator/drone
+
+add oauth2 creds
+
+helm upgrade dronacharya \
+  --reuse-values \
+  --set server.env.DRONE_PROVIDER="github" \
+  --set server.env.DRONE_GITHUB="true" \
+  --set server.env.DRONE_ADMIN="lvnilesh" \
+  --set server.env.DRONE_OPEN="false" \
+  --set server.env.DRONE_ORGS="beacloudgenius" \
+  --set server.env.DRONE_GITHUB_CLIENT="889d75e44c0fa303cbcf" \
+  --set server.env.DRONE_GITHUB_SECRET="5d16d20aad92d9f01d38b4d703d1f780db8ace01" \
+  --set server.env.DRONE_GITHUB_CONTEXT=dronacharya \
+  incubator/drone
+
+Read
+
+    http://docs.drone.io/install-for-github/#configuration
+
+Get the Drone URL by running:
+
+    kubectl get pods
+
+Find the server pod SERVER_POD_NAME from the result from previous step
+
+    kubectl -n default port-forward $SERVER_POD_NAME 8000:8000
+
+
+delete
+
+    helm delete --purge dronacharya
