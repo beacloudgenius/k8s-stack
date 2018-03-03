@@ -1,8 +1,21 @@
+#// Dave Savage 3/2/2018 - added an external IP lookup to be
+#//      authorized within the cluster
+
+#---------------------------------------------------
+# Call IPIFY to obtain your public facing IP address
+# Append the 32 as subnet length
+#---------------------------------------------------
+export MY_ADDR=$(curl -s https://api.ipify.org)/32
+echo "Your public facing IP is: " $MY_ADDR
+
+#---------------------------------------------------
+# Create the cluster using MY_ADDR for Master Authorized Networks
+#---------------------------------------------------
 gcloud container clusters create "bingo" \
     --project "cloudgeniuslabs" \
     --zone "us-west1-a" \
     --username="cloudgenius" \
-    --cluster-version "1.9.2-gke.1" \
+    --cluster-version "1.9.3-gke.0" \
     --machine-type "n1-standard-1" \
     --image-type "COS" \
     --disk-size "100" \
@@ -19,7 +32,7 @@ gcloud container clusters create "bingo" \
     --enable-autoscaling \
     --enable-network-policy \
     --enable-master-authorized-networks \
-    --master-authorized-networks 73.59.110.24/32 \
+    --master-authorized-networks "$MY_ADDR" \
     --min-nodes "1" \
     --max-nodes "11" \
     --enable-autoupgrade \
