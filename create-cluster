@@ -12,7 +12,7 @@ echo "Your public facing IP is: " $MY_ADDR
 # Create the cluster using MY_ADDR for Master Authorized Networks
 #---------------------------------------------------
 gcloud container clusters create "bingo" \
-    --project "cloudgeniuslabs-196705" \
+    --project "cloudgeniuslabs" \
     --zone "us-west1-a" \
     --username="cloudgenius" \
     --cluster-version "1.9.3-gke.0" \
