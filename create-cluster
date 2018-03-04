@@ -32,10 +32,10 @@ gcloud container clusters create "bingo" \
     --subnetwork=cg \
     --cluster-secondary-range-name=cg-pods \
     --services-secondary-range-name=cg-services \
-    --enable-autoscaling \
     --enable-network-policy \
     --enable-master-authorized-networks \
     --master-authorized-networks "$MY_ADDR" \
+    --enable-autoscaling \
     --min-nodes "1" \
     --max-nodes "11" \
     --enable-autoupgrade \
