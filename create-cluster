@@ -8,11 +8,14 @@
 export MY_ADDR=$(curl -s https://api.ipify.org)/32
 echo "Your public facing IP is: " $MY_ADDR
 
+export MY_PROJECT=$(gcloud config get-value project 2> /dev/null)
+echo "Your selected gcloud project is: " $MY_PROJECT
+
 #---------------------------------------------------
 # Create the cluster using MY_ADDR for Master Authorized Networks
 #---------------------------------------------------
 gcloud container clusters create "bingo" \
-    --project "cloudgeniuslabs" \
+    --project "$MY_PROJECT" \
     --zone "us-west1-a" \
     --username="cloudgenius" \
     --cluster-version "1.9.3-gke.0" \

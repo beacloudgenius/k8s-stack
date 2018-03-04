@@ -1,20 +1,22 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: nfs-server
+  name: test-nfs-server
 spec:
   replicas: 1
   selector:
     matchLabels:
-      role: nfs-server
+      role: test-nfs-server
   template:
     metadata:
       labels:
-        role: nfs-server
+        role: test-nfs-server
     spec:
       containers:
-      - name: nfs-server
-        image: cloudgenius/nfs-server:4.1
+      - name: test-nfs-server
+#        image: cloudgenius/nfs-server:4.1
+        image: cloudgenius/nfs-server:test
+#        image: gcr.io/cloudgeniuslabs/github-beacloudgenius-k8s-stack:f034ee686b78de9f898cf2378fa8589248373b88
         imagePullPolicy: Always
         ports:
           - name: nfs

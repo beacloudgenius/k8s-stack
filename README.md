@@ -24,16 +24,17 @@ configure gcloud
 
     export CLOUDSDK_COMPUTE_REGION=us-west1
     export CLOUDSDK_COMPUTE_ZONE=us-west1-a
+    export MY_PROJECT=$(gcloud info |tr -d '[]' | awk '/project:/ {print $2}')
 
 Establish a virtual private network
 
     gcloud compute networks create cloudgenius \
-        --project=cloudgeniuslabs  \
+        --project=$MY_PROJECT  \
         --subnet-mode=auto
 
 Create firewall rules
 
-    gcloud compute --project=cloudgeniuslabs firewall-rules create cloudgenius-allow-icmp \
+    gcloud compute --project=$MY_PROJECT firewall-rules create cloudgenius-allow-icmp \
       --description=Allows\ ICMP\ connections\ from\ any\ source\ to\ any\ instance\ on\ the\ network. \
       --direction=INGRESS \
       --priority=65534 \
@@ -42,7 +43,7 @@ Create firewall rules
       --rules=icmp \
       --source-ranges=0.0.0.0/0
 
-    gcloud compute --project=cloudgeniuslabs firewall-rules create cloudgenius-allow-internal \
+    gcloud compute --project=$MY_PROJECT firewall-rules create cloudgenius-allow-internal \
       --description=Allows\ connections\ from\ any\ source\ in\ the\ network\ IP\ range\ to\ any\ instance\ on\ the\ network\ using\ all\ protocols. \
       --direction=INGRESS \
       --priority=65534 \
@@ -51,7 +52,7 @@ Create firewall rules
       --rules=all \
       --source-ranges=10.128.0.0/9
 
-    gcloud compute --project=cloudgeniuslabs firewall-rules create cloudgenius-allow-ssh \
+    gcloud compute --project=$MY_PROJECT firewall-rules create cloudgenius-allow-ssh \
       --description=Allows\ TCP\ connections\ from\ any\ source\ to\ any\ instance\ on\ the\ network\ using\ port\ 22. \
       --direction=INGRESS \
       --priority=65534 \
@@ -74,7 +75,7 @@ Stand up a cluster
 
 Save credentials
 
-    gcloud container clusters get-credentials bingo --zone us-west1-a --project cloudgeniuslabs
+    gcloud container clusters get-credentials bingo --zone us-west1-a --project $MY_PROJECT
 
 Make typing easier
 
