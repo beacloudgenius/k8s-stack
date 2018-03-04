@@ -23,22 +23,6 @@ spec:
           - 'while true; do date > /mnt/test.html; hostname >> /mnt/test.html; sleep 5; done'
         imagePullPolicy: Always
         name: test
-        env:
-        - name: AWS_ACCESS_KEY_ID
-          valueFrom:
-            secretKeyRef:
-              name: awskeys
-              key: awsaccess
-        - name: AWS_SECRET_ACCESS_KEY
-          valueFrom:
-            secretKeyRef:
-              name: awskeys
-              key: awssecret
-        - name: AWS_DEFAULT_REGION
-          valueFrom:
-            secretKeyRef:
-              name: awskeys
-              key: region
         resources:
           requests:
             cpu: "25m"

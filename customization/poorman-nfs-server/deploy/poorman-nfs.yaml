@@ -1,19 +1,19 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: test-nfs-server
+  name: poorman-nfs
 spec:
   replicas: 1
   selector:
     matchLabels:
-      role: test-nfs-server
+      role: poorman-nfs
   template:
     metadata:
       labels:
-        role: test-nfs-server
+        role: poorman-nfs
     spec:
       containers:
-      - name: test-nfs-server
+      - name: poorman-nfs
 #        image: cloudgenius/nfs-server:4.1
         image: cloudgenius/nfs-server:test
 #        image: gcr.io/cloudgeniuslabs/github-beacloudgenius-k8s-stack:f034ee686b78de9f898cf2378fa8589248373b88

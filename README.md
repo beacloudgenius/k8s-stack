@@ -117,11 +117,3 @@ for helm command line permissions
 Remove the cluster
 
     sh remove-cluster
-
-create a GCE persistent disk
-
-    gcloud compute disks create somedisk --type=pd-ssd --size=200GB
-
-optional: format the disk to your taste
-
-    https://cloud.google.com/compute/docs/disks/add-persistent-disk#formatting
