@@ -4,16 +4,16 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: test
+  name: test-tools
 spec:
   replicas: 1
   selector:
     matchLabels:
-      name: test
+      name: test-tools
   template:
     metadata:
       labels:
-        name: test
+        name: test-tools
     spec:
       containers:
       - image: cloudgenius/toolimage:ubuntu
